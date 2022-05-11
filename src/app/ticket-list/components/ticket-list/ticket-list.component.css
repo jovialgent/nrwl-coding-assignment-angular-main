@@ -1,0 +1,14 @@
+.ticket-list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ticket-list__table {
+    width:100%;
+}
+
+.ticket-list td {
+  width: 200px;
+}
