@@ -15,4 +15,15 @@ export class UtilsService {
   userMatchesTicket(ticket: Ticket, user: User): boolean {
     return ticket?.assigneeId === user?.id;
   }
+
+  getTicket(ticketId: number, tickets: Ticket[]): Ticket {
+    return (
+      tickets.find((ticket: Ticket) => ticket.id === ticketId) ?? {
+        id: -1,
+        description: "",
+        assigneeId: -1,
+        completed: false,
+      }
+    );
+  }
 }

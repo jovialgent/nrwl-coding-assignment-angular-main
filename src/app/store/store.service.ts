@@ -17,6 +17,14 @@ export class StoreService {
     this.store.dispatch(TicketSystemActions.initUsers());
   }
 
+  saveTicket(ticketId: number, ticket: Partial<Ticket>) {
+    this.store.dispatch(TicketSystemActions.saveTicket({ ticketId, ticket }));
+  }
+
+  addTicket(ticket: Partial<Ticket>) {
+    this.store.dispatch(TicketSystemActions.addTicket({ ticket }));
+  }
+
   getUsers$(): Observable<User[]> {
     return this.store.select(TicketSystemSelectors.users());
   }

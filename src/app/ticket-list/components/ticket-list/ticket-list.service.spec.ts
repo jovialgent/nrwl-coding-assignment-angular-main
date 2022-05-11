@@ -1,5 +1,7 @@
 import { TestBed } from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
 import { Router, RouterModule } from "@angular/router";
+import { StoreModule } from "@ngrx/store";
 import { RouterMockService } from "src/app/utils/router-mock.service";
 import { ITicketListItem } from "./ticket-list.models";
 
@@ -11,7 +13,7 @@ describe("TicketListService", () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterModule.forRoot([])],
+      imports: [StoreModule.forRoot({}), RouterModule.forRoot([]), ReactiveFormsModule],
     });
     service = TestBed.inject(TicketListService);
   });

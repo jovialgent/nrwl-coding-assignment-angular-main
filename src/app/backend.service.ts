@@ -21,7 +21,7 @@ export type Ticket = {
 };
 
 function randomDelay() {
-  return Math.random() * 1000;
+  return Math.random() * 3000;
 }
 
 @Injectable()

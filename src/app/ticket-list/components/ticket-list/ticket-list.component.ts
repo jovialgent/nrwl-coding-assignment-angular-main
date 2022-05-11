@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 import { Observable } from "rxjs";
 import { tap } from "rxjs/operators";
 import { BackendService, Ticket } from "src/app/backend.service";
@@ -18,6 +19,7 @@ import { TicketListService } from "./ticket-list.service";
 export class TicketListComponent implements OnInit {
   settings$: Observable<ITicketList>;
   settings: ITicketList;
+  formGroup: FormGroup;
 
   constructor(
     private observables: TicketListObservableService,
@@ -26,6 +28,7 @@ export class TicketListComponent implements OnInit {
 
   ngOnInit(): void {
     this.settings = { ...emptyTicketList };
+    this.formGroup = this.service.createForm();
 
     this.settings$ = this.observables
       .getSettings$()
@@ -34,5 +37,10 @@ export class TicketListComponent implements OnInit {
 
   goToTicket(row: ITicketListItem): void {
     this.service.goToTicket(row);
+  }
+
+  saveTicket(): void {
+    this.service.saveTicket(this.formGroup.value);
+    this.formGroup.setValue({ description: "", assigneeId: -1 });
   }
 }

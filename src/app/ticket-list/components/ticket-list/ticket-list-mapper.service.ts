@@ -20,6 +20,7 @@ export class TicketListMapperService {
       ...emptyTicketList,
       loaded,
       tickets: ticketItems,
+      users
     };
   }
   mapTicketItems(tickets: Ticket[], users: User[]): ITicketListItem[] {

@@ -9,6 +9,7 @@ import {
 import { StoreModule } from "@ngrx/store";
 import { AppEffects } from "./effects";
 import { EffectsModule } from "@ngrx/effects";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 
 @NgModule({
   declarations: [],
@@ -17,6 +18,7 @@ import { EffectsModule } from "@ngrx/effects";
     StoreModule.forFeature(TicketFeatureKey, ticketsReducer),
     StoreModule.forFeature(UserFeatureKey, userReducer),
     EffectsModule.forFeature([AppEffects]),
+    MatSnackBarModule,
   ],
 })
 export class AppStoreModule {}

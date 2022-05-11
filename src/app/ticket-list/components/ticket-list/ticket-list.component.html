@@ -22,7 +22,9 @@
       </ng-container>
       <ng-container matColumnDef="completed">
         <th mat-header-cell *matHeaderCellDef>Completed</th>
-        <td mat-cell *matCellDef="let ticket">{{ ticket.completed }}</td>
+        <td mat-cell *matCellDef="let ticket">
+          {{ ticket.completed ? "YES" : "NO" }}
+        </td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="settings?.columns"></tr>
@@ -32,6 +34,33 @@
         *matRowDef="let row; columns: settings?.columns"
       ></tr>
     </table>
+    
+  
+    <form class="ticket-list__form" [formGroup]="formGroup">
+      <h3>Create a New Ticket</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input formControlName="description" matInput />
+        <mat-error>Descriptions are required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="assigneeId">
+          <ng-container *ngFor="let user of settings?.users">
+            <mat-option [value]="user.id">{{ user.name }}</mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error>Users are required</mat-error>
+      </mat-form-field>
+      <button
+        (click)="saveTicket()"
+        mat-button
+        color="secondary"
+        [disabled]="!formGroup?.valid"
+      >
+        Add Ticket
+      </button>
+    </form>
   </ng-container>
   <ng-template #loader>
     <mat-spinner></mat-spinner>

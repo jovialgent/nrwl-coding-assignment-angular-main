@@ -1,1 +1,34 @@
-<p>ticket-details works!</p>
+<section class="ticket-details">
+  <ng-container *ngIf="settings$ | async"></ng-container>
+  <h1>Ticket {{ settings?.ticketId }}</h1>
+  <ng-container *ngIf="settings?.loaded; else loader">
+    <form class="ticket-details__form" [formGroup]="formGroup">
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input formControlName="description" matInput />
+        <mat-error>Descriptions are required</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Select</mat-label>
+        <mat-select formControlName="assigneeId">
+          <ng-container *ngFor="let user of settings?.users">
+            <mat-option [value]="user.id">{{ user.name }}</mat-option>
+          </ng-container>
+        </mat-select>
+        <mat-error>Users are required</mat-error>
+      </mat-form-field>
+      <mat-checkbox formControlName="completed">Completed?</mat-checkbox>
+      <button
+        (click)="saveTicket()"
+        mat-button
+        color="secondary"
+        [disabled]="!formGroup?.valid"
+      >
+        Save Ticket
+      </button>
+    </form>
+  </ng-container>
+  <ng-template #loader>
+    <mat-spinner></mat-spinner>
+  </ng-template>
+</section>

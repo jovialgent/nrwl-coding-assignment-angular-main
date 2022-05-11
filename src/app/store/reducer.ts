@@ -18,7 +18,32 @@ export const ticketsReducer = createReducer(
   initialTicketState,
   on(TicketSystemActions.initTicketsSuccess, (state, { tickets }) =>
     ticketAdapter.setAll(tickets, { ...state, loaded: true })
-  )
+  ),
+  on(TicketSystemActions.saveTicket, (state) => ({
+    ...state,
+    loaded: false,
+  })),
+  on(TicketSystemActions.saveTicketSuccess, (state, { ticket, ticketId }) =>
+    ticketAdapter.updateOne(
+      { id: ticketId, changes: ticket },
+      { ...state, loaded: true }
+    )
+  ),
+  on(TicketSystemActions.saveTicketFail, (state) => ({
+    ...state,
+    loaded: true,
+  })),
+  on(TicketSystemActions.addTicket, (state) => ({
+    ...state,
+    loaded: false,
+  })),
+  on(TicketSystemActions.addTicketSuccess, (state, { ticket }) =>
+    ticketAdapter.addOne(ticket, { ...state, loaded: true })
+  ),
+  on(TicketSystemActions.addTicketFail, (state) => ({
+    ...state,
+    loaded: true,
+  }))
 );
 export const UserFeatureKey: string = "user";
 export interface UserState extends EntityState<User> {
